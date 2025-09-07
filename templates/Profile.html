@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ user.username }}'s Profile</title>
+    <style>
+        img { max-width: 200px; margin: 10px; }
+        .photo-container { display: flex; flex-wrap: wrap; }
+        .photo-box { margin: 10px; border: 1px solid #ccc; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>{{ user.username }}'s Gallery</h1>
+
+    <a href="{{ url_for('upload') }}">Upload Photo</a> | 
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+    <hr>
+
+    {% if photos %}
+        <div class="photo-container">
+            {% for photo in photos %}
+                <div class="photo-box">
+                    <img src="{{ url_for('static', filename='uploads/' ~ user.username ~ '/' ~ photo.filename) }}" alt="{{ photo.caption }}">
+                    <p>{{ photo.caption }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No photos uploaded yet.</p>
+    {% endif %}
+</body>
+</html>

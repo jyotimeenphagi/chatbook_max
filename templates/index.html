@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Gallery</title></head>
+<body>
+<h1>{{ current_user.username }}'s Gallery</h1>
+<a href="{{ url_for('upload') }}">Upload Photo</a> | 
+<a href="{{ url_for('logout') }}">Logout</a>
+<hr>
+{% if photos %}
+    {% for photo in photos %}
+        <div>
+            <img src="{{ url_for('static', filename='uploads/' ~ current_user.username ~ '/' ~ photo.filename) }}" width="200">
+            <p>{{ photo.caption }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No photos uploaded yet.</p>
+{% endif %}
+</body>
+</html>
