@@ -98,8 +98,11 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
 
+# ✅ Production entrypoint (for Render)
 if __name__ == "__main__":
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
